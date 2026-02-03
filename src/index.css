@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+/* Base font size for better mobile readability */
+html {
+  font-size: 16px;
+}
+
+/* Leaflet map fixes */
+.leaflet-container {
+  z-index: 0;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
+
+/* Mobile friendly touch */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Ensure minimum touch target size (44px) */
+button, a, input[type="button"], input[type="submit"] {
+  min-height: 44px;
+}
+
+/* Mobile-first: Larger text on small screens */
+@media (max-width: 640px) {
+  body {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  
+  /* Ensure buttons are easily tappable */
+  button, .btn {
+    padding: 12px 16px;
+    font-size: 16px;
+  }
+  
+  /* Larger form inputs */
+  input, select, textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 12px;
+  }
+}
+
+/* Loading spinner animation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Smooth transitions */
+* {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
