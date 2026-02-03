@@ -105,7 +105,7 @@ export function SampleDistribution() {
           <select
             value={productSKU}
             onChange={e => setProductSKU(e.target.value)}
-                className="w-full px-4 py-3 text-base border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none bg-white"
+
             required
           >
             <option value="">Select product</option>
@@ -124,7 +124,7 @@ export function SampleDistribution() {
             type="number"
             value={quantity}
             onChange={e => setQuantity(e.target.value)}
-                className="w-full px-4 py-3 text-base border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+
             placeholder="Enter quantity"
             step="0.5"
             required
@@ -139,7 +139,7 @@ export function SampleDistribution() {
               type="text"
               value={recipientName}
               onChange={e => setRecipientName(e.target.value)}
-                className="w-full px-4 py-3 text-base border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+
               placeholder="Enter name"
               required
             />
@@ -150,7 +150,8 @@ export function SampleDistribution() {
             <select
               value={recipientType}
               onChange={e => setRecipientType(e.target.value as 'farmer' | 'distributor' | 'retailer')}
-                className="w-full px-4 py-3 text-base border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none bg-white"
+className="w-full px-4 py-3 text-base border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none bg-white"
+
             >
               <option value="farmer">Farmer</option>
               <option value="distributor">Distributor</option>
@@ -209,7 +210,7 @@ export function SampleDistribution() {
         <button
           type="submit"
           disabled={!currentLocation}
-          className="w-full py-3 text-base bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 min-h-[48px]"
+
         >
           <Package className="w-5 h-5" />
           Record Sample Distribution
