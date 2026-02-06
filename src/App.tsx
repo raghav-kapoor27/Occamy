@@ -4,6 +4,7 @@ import { Landing } from "./pages/Landing";
 import { Login } from "./pages/Login";
 import { Signup } from "./pages/Signup";
 import { Home } from "./pages/Home";
+import { NatureShowcase } from "./pages/NatureShowcase";
 import { Layout } from "./components/Layout";
 
 // Admin Pages
@@ -73,6 +74,7 @@ export function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/nature" element={<NatureShowcase />} />
 
         {/* Admin Routes */}
         <Route

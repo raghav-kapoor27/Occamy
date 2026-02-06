@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   BarChart,
   Bar,
@@ -15,6 +16,7 @@ import {
   Legend,
 } from 'recharts';
 import { useData } from '../../context/DataContext';
+import { useAuth } from '../../context/AuthContext';
 import {
   TrendingUp,
   Users,
@@ -24,6 +26,7 @@ import {
   Truck,
   Target,
   Calendar,
+  LogOut,
 } from 'lucide-react';
 import { getMonthlyData, getStateWiseData, mockUsers } from '../../data/mockData';
 
@@ -31,6 +34,13 @@ const COLORS = ['#059669', '#0891b2', '#7c3aed', '#ea580c'];
 
 export function AdminDashboard() {
   const { meetings, samples, sales, dailyLogs } = useData();
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await logout();
+    navigate('/');
+  };
 
   const stats = useMemo(() => {
     const totalDistance = dailyLogs.reduce((sum, log) => sum + (log.distanceTraveled || 0), 0);
@@ -74,21 +84,30 @@ export function AdminDashboard() {
   ];
 
   return (
-    <div className="p-4 md:p-6 space-y-6">
+    <div className="p-4 md:p-6 space-y-6 relative z-10">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-800">Admin Dashboard</h1>
           <p className="text-gray-500">Overview of field operations</p>
         </div>
-        <div className="text-sm text-gray-500">
-          Last updated: {new Date().toLocaleDateString()}
+        <div className="flex items-center gap-4">
+          <div className="text-sm text-gray-500">
+            Last updated: {new Date().toLocaleDateString()}
+          </div>
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors font-medium"
+          >
+            <LogOut className="w-4 h-4" />
+            <span>Logout</span>
+          </button>
         </div>
       </div>
 
       {/* Stats Grid */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {statCards.map(card => (
-          <div key={card.label} className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+          <div key={card.label} className="bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-sm border border-gray-100">
             <div className="flex items-center gap-3">
               <div className={`${card.color} p-2 rounded-lg`}>
                 <card.icon className="w-5 h-5 text-white" />
@@ -105,7 +124,7 @@ export function AdminDashboard() {
       {/* Charts Row */}
       <div className="grid md:grid-cols-2 gap-6">
         {/* Monthly Trends */}
-        <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+        <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-sm border border-gray-100">
           <h3 className="font-semibold text-gray-800 mb-4">Monthly Trends</h3>
           <ResponsiveContainer width="100%" height={250}>
             <LineChart data={monthlyData}>
@@ -133,7 +152,7 @@ export function AdminDashboard() {
         </div>
 
         {/* Sales Distribution */}
-        <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+        <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-sm border border-gray-100">
           <h3 className="font-semibold text-gray-800 mb-4">Sales Distribution</h3>
           <ResponsiveContainer width="100%" height={250}>
             <PieChart>
@@ -159,7 +178,7 @@ export function AdminDashboard() {
       </div>
 
       {/* State-wise Performance */}
-      <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+      <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-sm border border-gray-100">
         <h3 className="font-semibold text-gray-800 mb-4">State-wise Performance</h3>
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={stateData}>
@@ -175,7 +194,7 @@ export function AdminDashboard() {
       </div>
 
       {/* Recent Activity Table */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+      <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-sm border border-gray-100 overflow-hidden">
         <div className="p-4 border-b border-gray-100">
           <h3 className="font-semibold text-gray-800">Recent Meetings</h3>
         </div>

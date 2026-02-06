@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useData } from '../../context/DataContext';
 import {
@@ -12,13 +12,20 @@ import {
   Navigation,
   CheckCircle,
   AlertCircle,
+  LogOut,
 } from 'lucide-react';
 import { DailyLog, Location } from '../../types';
 
 export function FieldDashboard() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
   const { meetings, samples, sales, currentDayLog, startDay, endDay } = useData();
   const [currentLocation, setCurrentLocation] = useState<Location | null>(null);
+
+  const handleLogout = async () => {
+    await logout();
+    navigate('/');
+  };
   const [odometerStart, setOdometerStart] = useState('');
   const [odometerEnd, setOdometerEnd] = useState('');
   const [locationError, setLocationError] = useState('');
@@ -98,10 +105,19 @@ export function FieldDashboard() {
   ];
 
   return (
-    <div className="p-4 md:p-6 space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-800">Welcome, {user?.name?.split(' ')[0]}!</h1>
-        <p className="text-gray-500">{new Date().toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+    <div className="p-4 md:p-6 space-y-6 relative z-10">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-800">Welcome, {user?.name?.split(' ')[0]}!</h1>
+          <p className="text-gray-500">{new Date().toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+        </div>
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors font-medium"
+        >
+          <LogOut className="w-4 h-4" />
+          <span>Logout</span>
+        </button>
       </div>
 
       {/* Day Status Card */}
@@ -155,7 +171,7 @@ export function FieldDashboard() {
       </div>
 
       {/* Location Status */}
-      <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+      <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-sm border border-gray-100">
         <div className="flex items-center gap-3">
           <div className={`p-2 rounded-lg ${currentLocation ? 'bg-emerald-100' : 'bg-red-100'}`}>
             <Navigation className={`w-5 h-5 ${currentLocation ? 'text-emerald-600' : 'text-red-600'}`} />
@@ -182,7 +198,7 @@ export function FieldDashboard() {
             <Link
               key={action.to}
               to={action.to}
-              className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md transition-shadow text-center"
+              className="bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md transition-shadow text-center"
             >
               <div className={`${action.color} w-12 h-12 rounded-xl mx-auto mb-2 flex items-center justify-center`}>
                 <action.icon className="w-6 h-6 text-white" />
@@ -195,7 +211,7 @@ export function FieldDashboard() {
       </div>
 
       {/* Today's Activity Summary */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+      <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-sm border border-gray-100 overflow-hidden">
         <div className="p-4 border-b border-gray-100">
           <h3 className="font-semibold text-gray-800">Today's Activity</h3>
         </div>
@@ -261,7 +277,7 @@ export function FieldDashboard() {
       {/* Start Day Modal */}
       {showStartModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl p-6 w-full max-w-md">
+          <div className="bg-white/95 backdrop-blur-md rounded-xl p-6 w-full max-w-md">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">Start Your Day</h3>
             <div className="space-y-4">
               <div>
@@ -309,7 +325,7 @@ export function FieldDashboard() {
       {/* End Day Modal */}
       {showEndModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl p-6 w-full max-w-md">
+          <div className="bg-white/95 backdrop-blur-md rounded-xl p-6 w-full max-w-md">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">End Your Day</h3>
             <div className="space-y-4">
               <div>

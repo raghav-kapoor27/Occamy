@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useData } from '../../context/DataContext';
 import {
@@ -9,11 +9,18 @@ import {
   MapPin,
   Clock,
   CheckCircle,
+  LogOut,
 } from 'lucide-react';
 
 export function DistributorDashboard() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
   const { samples, sales } = useData();
+
+  const handleLogout = async () => {
+    await logout();
+    navigate('/');
+  };
 
   // Filter data for this distributor
   const distributorSamples = useMemo(
@@ -63,25 +70,34 @@ export function DistributorDashboard() {
   ];
 
   return (
-    <div className="p-4 md:p-6 space-y-6">
+    <div className="p-4 md:p-6 space-y-6 relative z-10">
       {/* Header */}
-      <div>
-        <h1 className="text-2xl md:text-3xl font-bold text-gray-800">
-          Welcome, {user?.name?.split(' ')[0]}!
-        </h1>
-        <p className="text-gray-600 mt-1">
-          {new Date().toLocaleDateString('en-IN', {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          })}
-        </p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-800">
+            Welcome, {user?.name?.split(' ')[0]}!
+          </h1>
+          <p className="text-gray-600 mt-1">
+            {new Date().toLocaleDateString('en-IN', {
+              weekday: 'long',
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })}
+          </p>
+        </div>
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors font-medium"
+        >
+          <LogOut className="w-4 h-4" />
+          <span>Logout</span>
+        </button>
       </div>
 
       {/* Stats Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+        <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-sm border border-gray-100">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-blue-100 rounded-lg">
               <Package className="w-5 h-5 text-blue-600" />
@@ -93,7 +109,7 @@ export function DistributorDashboard() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+        <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-sm border border-gray-100">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-emerald-100 rounded-lg">
               <ShoppingCart className="w-5 h-5 text-emerald-600" />
@@ -107,7 +123,7 @@ export function DistributorDashboard() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+        <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-sm border border-gray-100">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-purple-100 rounded-lg">
               <TrendingUp className="w-5 h-5 text-purple-600" />
@@ -119,7 +135,7 @@ export function DistributorDashboard() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+        <div className="bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-sm border border-gray-100">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-orange-100 rounded-lg">
               <CheckCircle className="w-5 h-5 text-orange-600" />
@@ -146,7 +162,7 @@ export function DistributorDashboard() {
               <Link
                 key={action.to}
                 to={action.to}
-                className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow text-center min-h-[120px] flex flex-col items-center justify-center"
+                className="bg-white/90 backdrop-blur-sm rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow text-center min-h-[120px] flex flex-col items-center justify-center"
               >
                 <div
                   className={`${action.color} w-14 h-14 rounded-xl mb-3 flex items-center justify-center`}
@@ -168,7 +184,7 @@ export function DistributorDashboard() {
       </div>
 
       {/* Today's Activity */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+      <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-sm border border-gray-100 overflow-hidden">
         <div className="p-4 md:p-6 border-b border-gray-100">
           <h3 className="font-semibold text-gray-800 text-lg">Today's Activity</h3>
         </div>
