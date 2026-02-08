@@ -96,15 +96,15 @@ export function Landing() {
           >
             <div className="flex items-center gap-2 bg-emerald-500/10 backdrop-blur-sm px-3 py-2 rounded-full border border-emerald-500/20">
               <CheckCircle className="w-5 h-5 text-emerald-300" />
-              <span>Real-time GPS Tracking</span>
+              <span>Real time GPS Tracking</span>
             </div>
             <div className="flex items-center gap-2 bg-emerald-500/10 backdrop-blur-sm px-3 py-2 rounded-full border border-emerald-500/20">
               <CheckCircle className="w-5 h-5 text-emerald-300" />
-              <span>Mobile-First Design</span>
+              <span>Mobile First Design</span>
             </div>
             <div className="flex items-center gap-2 bg-emerald-500/10 backdrop-blur-sm px-3 py-2 rounded-full border border-emerald-500/20">
               <CheckCircle className="w-5 h-5 text-emerald-300" />
-              <span>Offline Capable</span>
+              <span>Cloud Connected</span>
             </div>
           </motion.div>
 
@@ -221,7 +221,7 @@ export function Landing() {
               <div className="w-12 h-12 bg-blue-500/20 backdrop-blur-sm rounded-lg flex items-center justify-center mx-auto mb-4 border border-blue-500/30">
                 <Users className="w-6 h-6 text-blue-300" />
               </div>
-              <h4 className="font-semibold text-emerald-100 mb-2">Role-Based Access</h4>
+              <h4 className="font-semibold text-emerald-100 mb-2">Role Based Access</h4>
               <p className="text-sm text-emerald-200/80">Tailored interfaces for each user type</p>
             </motion.div>
             <motion.div
@@ -233,7 +233,7 @@ export function Landing() {
               <div className="w-12 h-12 bg-purple-500/20 backdrop-blur-sm rounded-lg flex items-center justify-center mx-auto mb-4 border border-purple-500/30">
                 <Truck className="w-6 h-6 text-purple-300" />
               </div>
-              <h4 className="font-semibold text-emerald-100 mb-2">Real-Time Tracking</h4>
+              <h4 className="font-semibold text-emerald-100 mb-2">Real Time Tracking</h4>
               <p className="text-sm text-emerald-200/80">Monitor operations as they happen</p>
             </motion.div>
           </div>
